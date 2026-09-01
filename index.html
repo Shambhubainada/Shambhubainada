@@ -118,9 +118,13 @@ async function loadSheet(){
    rows=raw.filter(r=>r.some(v=>String(v).trim()!=="")).map(r=>{
      const st=cell(r,ix.status),rm=cell(r,ix.remarks),last=cell(r,ix.last)||cell(r,ix.fum),days=dayCount(last);
      const text=norm(st+" "+rm);
+     const coverRaw=norm(cell(r,ix.cover));
+     const coverExplicit=/under cover|undercover/.test(text) ||
+       (ix.cover>=0 && /^(true|yes|1|on|under cover|undercover)$/.test(coverRaw));
+     const inf=/infest/.test(text);
      return {stack:cell(r,ix.stack),comm:cell(r,ix.comm),receipt:cell(r,ix.receipt),status:st,fum:cell(r,ix.fum),last,days,
-       inf:/infest/.test(text),cover:/under cover|undercover/.test(text)||/true|yes/.test(norm(cell(r,ix.cover))),
-       due:/due/.test(text)||/true|yes/.test(norm(cell(r,ix.due)))||(days!==""&&days>30),
+       inf,cover:coverExplicit,
+       due:/due/.test(text)||((ix.due>=0)&&/^(true|yes|1|on|due)$/.test(norm(cell(r,ix.due))))||(days!==""&&days>30),
        empty:/empty/.test(text)};
    });
    render();
