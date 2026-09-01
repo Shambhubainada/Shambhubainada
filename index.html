@@ -21,6 +21,18 @@
 </style>
 </head>
 <body>
+
+<div id="priorityDownloads" style="display:flex;gap:10px;flex-wrap:wrap;margin:12px 0;">
+  <a href="Wheat_Priority.xlsx" download="Wheat_Priority.xlsx"
+     style="display:inline-block;padding:10px 14px;border-radius:8px;background:#1b5e20;color:#fff;text-decoration:none;font-weight:700;">
+     ⬇️ WHEAT PRIORITY XLSX
+  </a>
+  <a href="Rice_Priority.xlsx" download="Rice_Priority.xlsx"
+     style="display:inline-block;padding:10px 14px;border-radius:8px;background:#1565c0;color:#fff;text-decoration:none;font-weight:700;">
+     ⬇️ RICE PRIORITY XLSX
+  </a>
+</div>
+
 <header class="top">
   <div class="logo">🏭</div>
   <div class="title"><b>QUALITY TREATMENT MONITORING DASHBOARD</b><small>GODOWN NO. 9, 14, 18 &amp; 20</small></div>
@@ -40,7 +52,7 @@
   <aside class="quick">
     <h3>QUICK NAVIGATION</h3>
     <a class="q q1" id="qc">▣ QC DETAILS</a><a class="q q2" id="master">▤ MASTER</a>
-    <a class="q q3" id="rice">🌾 RICE PRIORITY</a><a class="q q4" id="wheat">🌾 WHEAT PRIORITY</a>
+    <a class="q q3" id="rice">🌾 RICE PRIORITY</a><a class="q q4" id="wheat">🌾 WHEAT PRIORITY</a><a class="q q5" id="riceXlsx">⬇ RICE PRIORITY XLSX</a><a class="q q6" id="wheatXlsx">⬇ WHEAT PRIORITY XLSX</a>
   </aside>
 </section>
 
@@ -71,7 +83,12 @@
 const SHEET_ID="1igJ0rzEp3txMDdhjwjrMB5V9BkJcyjt74g1xWh3YSHo";
 const SHEET="Master Stock";
 const SHEET_URL="https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/edit";
-["qc","master","rice","wheat"].forEach(id=>document.getElementById(id).href=SHEET_URL);
+document.getElementById("qc").href=SHEET_URL;
+document.getElementById("master").href=SHEET_URL;
+document.getElementById("rice").href="Rice_Priority.xlsx";
+document.getElementById("wheat").href="Wheat_Priority.xlsx";
+document.getElementById("riceXlsx").href="Rice_Priority.xlsx";
+document.getElementById("wheatXlsx").href="Wheat_Priority.xlsx";
 let rows=[],headers=[];
 
 function norm(v){return String(v??"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim()}
