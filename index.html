@@ -1,179 +1,24 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Quality Treatment Monitoring Dashboard</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Godown Stock & Treatment Dashboard</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f6fa;color:#14213d}
-.top{background:linear-gradient(135deg,#06265f,#123f83);color:#fff;padding:10px 14px;display:flex;align-items:center;gap:14px;box-shadow:0 3px 12px #0003}
-.logo{font-size:34px}.title{flex:1;text-align:center}.title b{display:block;font-size:25px}.title small{font-size:13px;letter-spacing:2px}.person{text-align:center;border-left:1px solid #ffffff55;padding-left:14px;font-size:12px}.person b{display:block;font-size:13px}.updated{font-size:11px;text-align:right;white-space:nowrap}.updated button{border:0;background:none;color:white;font-size:24px;cursor:pointer}
-.wrap{padding:10px;max-width:1500px;margin:auto}.live{background:#eaf8ee;border:1px solid #b7dfc1;border-radius:6px;padding:7px 10px;font-size:12px;margin-bottom:10px;color:#176b2c}.live.err{background:#fff0f0;border-color:#e4aaaa;color:#a00000}
-.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.card{background:#fff;border:1px solid #d5dce7;border-radius:8px;text-align:center;padding:12px;box-shadow:0 2px 7px #00000012}.card .lab{font-weight:800;font-size:14px}.card .num{font-size:38px;font-weight:900;margin:5px}.blue{border-top:4px solid #1455a0}.green{border-top:4px solid #2e8b3c}.purple{border-top:4px solid #71409b}.red{border-top:4px solid #c51d27}.orange{border-top:4px solid #e58400}
-.quick{background:#0b326e;color:#fff;border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:7px}.quick h3{text-align:center;margin:0 0 2px;font-size:14px}.q{color:#fff;text-decoration:none;text-align:center;padding:11px;border-radius:6px;font-weight:800;font-size:12px}.q1{background:#f08a00}.q2{background:#2d983b}.q3{background:#2864b6}.q4{background:#70419a}
-.kpis .quick{grid-column:auto}
-.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}.panel,.detail,.search{background:#fff;border:1px solid #d3dbe7;border-radius:8px;overflow:hidden;box-shadow:0 2px 7px #00000010}.panel h3,.detail h3,.search h3{margin:0;background:#0b326e;color:#fff;text-align:center;padding:8px;font-size:13px}.panel table,.detail table{width:100%;border-collapse:collapse;font-size:12px}.panel th,.panel td,.detail th,.detail td{border:1px solid #d8dee8;padding:7px;text-align:center}.panel th{background:#eef2f7}.total{font-weight:800;background:#f5f7fa}
-.donutbox{padding:10px;text-align:center}.donut{width:150px;height:150px;border-radius:50%;margin:5px auto 10px;background:conic-gradient(#f08a00 0 33%,#aaa 33% 80%,#d21c29 80% 100%);position:relative}.donut:after{content:"";position:absolute;inset:35px;background:white;border-radius:50%}.donut span{position:absolute;z-index:2;left:0;right:0;top:54px;font-weight:900;font-size:22px}.legend{font-size:11px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-.details{display:grid;grid-template-columns:1fr 1fr 310px;gap:10px;margin-top:10px}.detail h3.redh{background:#c71622}.detail h3.orh{background:#eb8500}.detail table{min-width:620px}.scroll{overflow:auto;max-height:280px}.foot{text-align:center;padding:8px;background:#fff0f0;color:#a5151b;font-size:13px}.orfoot{background:#fff6e8;color:#a85d00}
-.search input{width:calc(100% - 20px);margin:10px;padding:10px;border:1px solid #cbd4e0;border-radius:5px}.res{display:flex;justify-content:space-between;padding:8px 10px;border-top:1px solid #e0e4ea;font-size:12px}.res b{color:#17366e}.guide{margin-top:10px;background:#fff;border:1px solid #cbd4e0;border-radius:8px;padding:10px;display:flex;justify-content:space-around;text-align:center;font-size:12px}.note{text-align:center;padding:12px;font-size:12px}
-@media(max-width:900px){.top{gap:7px;padding:7px}.logo{font-size:24px}.title b{font-size:15px}.title small{font-size:8px;letter-spacing:1px}.person{font-size:9px;padding-left:7px}.person b{font-size:10px}.updated{font-size:8px}.updated button{font-size:18px}.kpis{grid-template-columns:repeat(2,1fr)}.kpis .quick{grid-column:1/-1}.grid{grid-template-columns:1fr 1fr}.details{grid-template-columns:1fr}.search{order:3}.guide{gap:8px;flex-wrap:wrap}}
-@media(max-width:560px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.card .num{font-size:30px}.card .lab{font-size:11px}.wrap{padding:6px}}
-</style>
-</head>
-<body>
-
-<div id="priorityDownloads" style="display:flex;gap:10px;flex-wrap:wrap;margin:12px 0;">
-  <a href="Wheat_Priority.xlsx" download="Wheat_Priority.xlsx"
-     style="display:inline-block;padding:10px 14px;border-radius:8px;background:#1b5e20;color:#fff;text-decoration:none;font-weight:700;">
-     ⬇️ WHEAT PRIORITY XLSX
-  </a>
-  <a href="Rice_Priority.xlsx" download="Rice_Priority.xlsx"
-     style="display:inline-block;padding:10px 14px;border-radius:8px;background:#1565c0;color:#fff;text-decoration:none;font-weight:700;">
-     ⬇️ RICE PRIORITY XLSX
-  </a>
+body{font-family:Arial,sans-serif;margin:0;background:#f4f6f8;color:#1f2937}header{background:#17365d;color:white;padding:18px 16px;position:sticky;top:0;z-index:3}h1{font-size:20px;margin:0 0 4px}.sub{font-size:12px;opacity:.85}.wrap{padding:14px;max-width:1400px;margin:auto}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.card{background:white;border-radius:10px;padding:13px;box-shadow:0 1px 5px #0001}.num{font-size:25px;font-weight:bold}.label{font-size:12px;color:#64748b}.toolbar{background:white;padding:12px;border-radius:10px;margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap}input,select,button{padding:10px;border:1px solid #cbd5e1;border-radius:7px;background:white}button{cursor:pointer;background:#17365d;color:white;border:0}.tablebox{background:white;border-radius:10px;overflow:auto;box-shadow:0 1px 5px #0001}table{border-collapse:collapse;width:100%;min-width:1050px}th,td{padding:9px 8px;border-bottom:1px solid #e5e7eb;text-align:left;font-size:13px;white-space:nowrap}th{background:#e8eef6;position:sticky;top:67px;z-index:2}.empty{color:#94a3b8}.download{background:#0b6e4f}@media(max-width:800px){.cards{grid-template-columns:repeat(2,1fr)}h1{font-size:17px}}
+</style></head><body>
+<header><h1>GODOWN STOCK & TREATMENT DASHBOARD</h1><div class="sub">Godown No. 9, 14, 18 & 20 • Data from des_total.xlsx • Updated 02.09.26</div></header>
+<div class="wrap">
+<div class="cards"><div class="card"><div class="num" id="total">0</div><div class="label">TOTAL STACKS</div></div><div class="card"><div class="num" id="occupied">0</div><div class="label">OCCUPIED</div></div><div class="card"><div class="num" id="empty">0</div><div class="label">EMPTY</div></div><div class="card"><div class="num" id="qty">0</div><div class="label">TOTAL QTY (MT)</div></div></div>
+<div class="toolbar"><input id="search" placeholder="Search stack / shed / commodity..." oninput="render()"><select id="shed" onchange="render()"><option value="">All Sheds</option><option>9</option><option>14</option><option>18</option><option>20</option></select><select id="type" onchange="render()"><option value="">All Commodity</option><option value="WHEAT">Wheat</option><option value="RICE">Rice</option></select><button onclick="location.reload()">↻ Refresh</button>
+<a href="Godown_Master_Stock.xlsx" download><button class="download">⬇ Download Master Excel</button></a><a href="Wheat_Priority.xlsx" download><button class="download">⬇ Wheat Priority</button></a><a href="Rice_Priority.xlsx" download><button class="download">⬇ Rice Priority</button></a></div>
+<div class="tablebox"><table><thead><tr><th>Sr. No.</th><th>Receipt Date</th><th>Shed No.</th><th>Stack No.</th><th>Bags</th><th>Qty (MT)</th><th>Commodity / Crop Year</th><th>Status</th><th>Storage Period</th><th>Fumigation Date</th><th>Degassing Date</th><th>Last Fumigation</th><th>CAT</th></tr></thead><tbody id="body"></tbody></table></div>
 </div>
-
-<header class="top">
-  <div class="logo">🏭</div>
-  <div class="title"><b>QUALITY TREATMENT MONITORING DASHBOARD</b><small>GODOWN NO. 9, 14, 18 &amp; 20</small></div>
-  <div class="person"><b>Shambhu Dayal Meena</b><span>TA-II</span></div>
-  <div class="updated">Last Updated<br><span id="updated">--</span><button onclick="loadSheet()">↻</button></div>
-</header>
-
-<main class="wrap">
-<div id="live" class="live">Connecting to Google Sheet…</div>
-
-<section class="kpis">
-  <div class="card blue"><div class="lab">TOTAL STACK</div><div class="num" id="total">0</div>All Stacks</div>
-  <div class="card green"><div class="lab">FULL STACK</div><div class="num" id="full">0</div>Full Stacks</div>
-  <div class="card purple"><div class="lab">EMPTY STACK</div><div class="num" id="empty">0</div>Empty Stacks</div>
-  <div class="card red"><div class="lab">INFESTED / UNDER COVER</div><div class="num" id="attention">0</div>Requires Attention</div>
-  <div class="card orange"><div class="lab">FUMIGATION DUE</div><div class="num" id="due">0</div>Due for Fumigation</div>
-  <aside class="quick">
-    <h3>QUICK NAVIGATION</h3>
-    <a class="q q1" id="qc">▣ QC DETAILS</a><a class="q q2" id="master">▤ MASTER</a>
-    <a class="q q3" id="rice">🌾 RICE PRIORITY</a><a class="q q4" id="wheat">🌾 WHEAT PRIORITY</a><a class="q q5" id="riceXlsx">⬇ RICE PRIORITY XLSX</a><a class="q q6" id="wheatXlsx">⬇ WHEAT PRIORITY XLSX</a>
-  </aside>
-</section>
-
-<section class="grid">
-  <div class="panel"><h3>STACK TYPE SUMMARY</h3><table><thead><tr><th>STACK TYPE</th><th>COUNT</th><th>%</th></tr></thead><tbody>
-    <tr><td>🟠 Wheat</td><td id="wheatN">0</td><td id="wheatP">0%</td></tr>
-    <tr><td>⚪ Rice (FRK + RRA)</td><td id="riceN">0</td><td id="riceP">0%</td></tr>
-    <tr><td>🔴 Empty Stack</td><td id="emptyN">0</td><td id="emptyP">0%</td></tr>
-    <tr class="total"><td>TOTAL</td><td id="totalN">0</td><td>100%</td></tr>
-  </tbody></table></div>
-  <div class="panel donutbox"><h3>STACK TYPE</h3><div class="donut" id="stackDonut"><span id="donutText">0</span></div><div class="legend">🟠 Wheat &nbsp; ⚪ Rice &nbsp; 🔴 Empty</div></div>
-  <div class="panel donutbox"><h3>INFESTATION STATUS</h3><div class="donut" id="statusDonut"><span id="clearText">0</span></div><div class="legend">🔵 Clear &nbsp; 🔴 Attention &nbsp; 🟢 Due</div></div>
-</section>
-
-<section class="details">
-  <div class="detail"><h3 class="redh">🐞 INFESTED / UNDER COVER DETAILS</h3><div class="scroll"><table><thead><tr><th>Stack No.</th><th>Commodity</th><th>Fumigation Date</th><th>Days</th></tr></thead><tbody id="attBody"></tbody></table></div><div class="foot">Total Infested / Under Cover : <b id="attTotal">0</b></div></div>
-  <div class="detail"><h3 class="orh">🧯 FUMIGATION DUE DETAILS</h3><div class="scroll"><table><thead><tr><th>Stack No.</th><th>Commodity</th><th>Last Fumigation</th><th>Days</th><th>Status</th></tr></thead><tbody id="dueBody"></tbody></table></div><div class="foot orfoot">Total Fumigation Due : <b id="dueTotal">0</b></div></div>
-  <div class="search"><h3>SEARCH STACK</h3><input id="search" placeholder="Enter Stack No.">
-    <div class="res"><b>Stack No.</b><span id="s1">-</span></div><div class="res"><b>Commodity</b><span id="s2">-</span></div><div class="res"><b>Date of Receipt</b><span id="s3">-</span></div><div class="res"><b>Last Fumigation</b><span id="s4">-</span></div><div class="res"><b>Fumigation Days</b><span id="s5">-</span></div><div class="res"><b>Status</b><span id="s6">-</span></div>
-  </div>
-</section>
-
-<div class="guide"><b>STATUS GUIDE</b><span>🟢 NORMAL<br><small>&lt; 25 days</small></span><span>🟠 WARNING<br><small>25–30 days</small></span><span>🔴 DUE<br><small>&gt; 30 days</small></span><span>🟣 ATTENTION<br><small>Infested / Under Cover</small></span></div>
-<div class="note">ⓘ Days are calculated automatically from Last Fumigation Date. &nbsp; <b>Keep Stack Safe, Keep Quality Safe!</b></div>
-</main>
-
 <script>
-const SHEET_ID="1igJ0rzEp3txMDdhjwjrMB5V9BkJcyjt74g1xWh3YSHo";
-const SHEET="Master Stock";
-const SHEET_URL="https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/edit";
-document.getElementById("qc").href=SHEET_URL;
-document.getElementById("master").href=SHEET_URL;
-document.getElementById("rice").href="Rice_Priority.xlsx";
-document.getElementById("wheat").href="Wheat_Priority.xlsx";
-document.getElementById("riceXlsx").href="Rice_Priority.xlsx";
-document.getElementById("wheatXlsx").href="Wheat_Priority.xlsx";
-let rows=[],headers=[];
-
-function norm(v){return String(v??"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim()}
-function col(names){for(const x of names){let i=headers.findIndex(h=>norm(h)===norm(x));if(i>=0)return i}for(const x of names){let i=headers.findIndex(h=>norm(h).includes(norm(x)));if(i>=0)return i}return -1}
-function cell(r,i){return i<0?"":String(r[i]??"").trim()}
-function dateObj(v){
- if(!v)return null;
- let m=v.match(/^(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{2,4})$/);
- if(m){let y=+m[3];if(y<100)y+=2000;return new Date(y,+m[2]-1,+m[1])}
- let d=new Date(v);return isNaN(d)?null:d
-}
-function dayCount(v){let d=dateObj(v);return d?Math.max(0,Math.floor((Date.now()-d)/86400000)):""}
-function esc(v){return String(v??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
-function pct(n,t){return t?((n/t)*100).toFixed(1)+"%":"0%"}
-
-function gviz(){
- return new Promise((resolve,reject)=>{
-   const cb="sheetCB_"+Date.now()+"_"+Math.floor(Math.random()*9999);
-   const s=document.createElement("script");
-   let done=false;
-   const clean=()=>{clearTimeout(timer);s.remove();try{delete window[cb]}catch(e){}};
-   const timer=setTimeout(()=>{if(!done){done=true;clean();reject(new Error("timeout"))}},15000);
-   window[cb]=o=>{if(done)return;done=true;clean();resolve(o)};
-   s.onerror=()=>{if(done)return;done=true;clean();reject(new Error("Google request failed"))};
-   const base="https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/gviz/tq";
-   s.src=base+"?sheet="+encodeURIComponent(SHEET)+"&tqx="+encodeURIComponent("out:json;responseHandler:"+cb)+"&tq="+encodeURIComponent("select *")+"&_="+Date.now();
-   document.head.appendChild(s);
- });
-}
-
-async function loadSheet(){
- const live=document.getElementById("live");live.className="live";live.textContent="Connecting to Google Sheet…";
- try{
-   const o=await gviz();
-   if(!o||o.status==="error")throw new Error(o?.errors?.[0]?.message||"Google Sheet error");
-   headers=(o.table?.cols||[]).map(c=>c.label||c.id||"");
-   const raw=(o.table?.rows||[]).map(r=>(r.c||[]).map(c=>c?((c.f??c.v??"")):""));
-   const ix={
-    stack:col(["Stack No.","Stack"]),comm:col(["Commodity / Crop Year","Commodity","Crop Year"]),
-    receipt:col(["Receipt Date","RDate of receipt","Date of Receipt"]),status:col(["Status","QC Status"]),
-    fum:col(["Fumigation Date"]),last:col(["LAST FUMIGATION","Last Fumigation Date","Last Fumigation"]),
-    remarks:col(["QC Remarks","Remarks"]),cover:col(["UnderCover_Flag"]),due:col(["DegassingDue_Flag"])
-   };
-   rows=raw.filter(r=>r.some(v=>String(v).trim()!=="")).map(r=>{
-     const st=cell(r,ix.status),rm=cell(r,ix.remarks),last=cell(r,ix.last)||cell(r,ix.fum),days=dayCount(last);
-     const text=norm(st+" "+rm);
-     const coverRaw=norm(cell(r,ix.cover));
-     const coverExplicit=/under cover|undercover/.test(text) ||
-       (ix.cover>=0 && /^(true|yes|1|on|under cover|undercover)$/.test(coverRaw));
-     const inf=/infest/.test(text);
-     return {stack:cell(r,ix.stack),comm:cell(r,ix.comm),receipt:cell(r,ix.receipt),status:st,fum:cell(r,ix.fum),last,days,
-       inf,cover:coverExplicit,
-       due:/due/.test(text)||((ix.due>=0)&&/^(true|yes|1|on|due)$/.test(norm(cell(r,ix.due))))||(days!==""&&days>30),
-       empty:/empty/.test(text)};
-   });
-   render();
-   live.textContent="● LIVE — Master Stock connected • "+rows.length+" rows";
-   document.getElementById("updated").textContent=new Date().toLocaleString("en-IN",{day:"2-digit",month:"2-digit",year:"2-digit",hour:"2-digit",minute:"2-digit"});
- }catch(e){
-   live.className="live err";
-   live.textContent="Google Sheet connection failed. Make sure the spreadsheet is Published to web and the tab name is exactly “Master Stock”.";
-   console.error(e);
- }
-}
+const DATA=[{"receipt": "10.04.26", "shed": 9, "stack": "9A01", "bags": 3501, "qty": 170.759, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 145, "fumigation": null, "degassing": null, "lastFumigation": "20.05.26", "category": "A"}, {"receipt": "15.06.25", "shed": 9, "stack": "9A02", "bags": 3501, "qty": 173.685, "commodity": "WHEAT FAQ 2025-26", "status": "OCCUPIED", "storage": 444, "fumigation": null, "degassing": null, "lastFumigation": "25.07.26", "category": "A"}, {"receipt": "28.04.25", "shed": 9, "stack": "9A03", "bags": 3501, "qty": 174.72, "commodity": "WHEAT FAQ 2025-26", "status": "OCCUPIED", "storage": 492, "fumigation": "31.08.26", "degassing": null, "lastFumigation": "31.08.26", "category": "A"}, {"receipt": "17.07.26", "shed": 9, "stack": "9A04", "bags": 3413, "qty": 164.836, "commodity": "FRK  RRA 2023-24", "status": "OCCUPIED", "storage": 47, "fumigation": null, "degassing": null, "lastFumigation": "01.08.26", "category": "A"}, {"receipt": "04.06.25", "shed": 9, "stack": "9A05", "bags": 3501, "qty": 174.25, "commodity": "WHEAT FAQ 2025-26", "status": "OCCUPIED", "storage": 455, "fumigation": null, "degassing": null, "lastFumigation": "14.05.26", "category": "A"}, {"receipt": null, "shed": 9, "stack": "9A06", "bags": null, "qty": null, "commodity": null, "status": "EMPTY", "storage": null, "fumigation": null, "degassing": null, "lastFumigation": null, "category": "A"}, {"receipt": "24.10.25", "shed": 9, "stack": "9A07", "bags": 3501, "qty": 172.965, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 313, "fumigation": null, "degassing": null, "lastFumigation": "25.07.26", "category": "A"}, {"receipt": "26.03.26", "shed": 9, "stack": "9A08", "bags": 3501, "qty": 173.953, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 160, "fumigation": null, "degassing": null, "lastFumigation": "29.07.26", "category": "A"}, {"receipt": null, "shed": 9, "stack": "9A09", "bags": null, "qty": null, "commodity": null, "status": "EMPTY", "storage": null, "fumigation": null, "degassing": null, "lastFumigation": null, "category": "A"}, {"receipt": "31.03.26", "shed": 9, "stack": "9B10", "bags": 3501, "qty": 170.648, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 155, "fumigation": null, "degassing": null, "lastFumigation": "21.08.26", "category": "A"}, {"receipt": "13.08.25", "shed": 9, "stack": "9B11", "bags": 3501, "qty": 177.26, "commodity": "WHEAT FAQ 2025-26", "status": "OCCUPIED", "storage": 385, "fumigation": null, "degassing": null, "lastFumigation": "21.08.26", "category": "A"}, {"receipt": "18.10.25", "shed": 9, "stack": "9B12", "bags": 3501, "qty": 172.86, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 319, "fumigation": null, "degassing": null, "lastFumigation": "01.08.26", "category": "A"}, {"receipt": "21.01.26", "shed": 9, "stack": "9B13", "bags": 3501, "qty": 172.481, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 224, "fumigation": null, "degassing": null, "lastFumigation": "01.07.26", "category": "A"}, {"receipt": "27.12.25", "shed": 9, "stack": "9B14", "bags": 3501, "qty": 173.251, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 249, "fumigation": null, "degassing": null, "lastFumigation": "21.08.26", "category": "A"}, {"receipt": "28.04.25", "shed": 9, "stack": "9B15", "bags": 3501, "qty": 174.492, "commodity": "WHEAT FAQ 2025-26", "status": "OCCUPIED", "storage": 492, "fumigation": null, "degassing": null, "lastFumigation": "01.08.26", "category": "A"}, {"receipt": "27.03.26", "shed": 9, "stack": "9B16", "bags": 3501, "qty": 172.736, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 159, "fumigation": null, "degassing": null, "lastFumigation": "21.08.26", "category": "A"}, {"receipt": null, "shed": 9, "stack": "9B17", "bags": null, "qty": null, "commodity": null, "status": "EMPTY", "storage": null, "fumigation": null, "degassing": null, "lastFumigation": null, "category": "A"}, {"receipt": "04.06.25", "shed": 9, "stack": "9B18", "bags": 3501, "qty": 174.355, "commodity": "WHEAT FAQ 2025-26", "status": "OCCUPIED", "storage": 455, "fumigation": null, "degassing": null, "lastFumigation": "01.08.26", "category": "A"}, {"receipt": null, "shed": 14, "stack": "14A01", "bags": null, "qty": null, "commodity": null, "status": "EMPTY", "storage": null, "fumigation": null, "degassing": null, "lastFumigation": null, "category": "A"}, {"receipt": "21.08.25", "shed": 14, "stack": "14A02", "bags": 3501, "qty": 175.283, "commodity": "WHEAT FAQ 2025-26", "status": "OCCUPIED", "storage": 377, "fumigation": "31.08.26", "degassing": null, "lastFumigation": null, "category": "A"}, {"receipt": "15.06.25", "shed": 14, "stack": "14A03", "bags": 3501, "qty": 174.156, "commodity": "WHEAT FAQ 2025-26", "status": "OCCUPIED", "storage": 444, "fumigation": null, "degassing": null, "lastFumigation": "21.08.26", "category": "A"}, {"receipt": null, "shed": 14, "stack": "14A04", "bags": null, "qty": null, "commodity": null, "status": "EMPTY", "storage": null, "fumigation": null, "degassing": null, "lastFumigation": null, "category": "A"}, {"receipt": "06.09.25", "shed": 14, "stack": "14A05", "bags": 3501, "qty": 177.281, "commodity": "WHEAT FAQ 2025-26", "status": "OCCUPIED", "storage": 361, "fumigation": null, "degassing": null, "lastFumigation": "21.08.26", "category": "A"}, {"receipt": "02.06.26", "shed": 14, "stack": "14A06", "bags": 3501, "qty": 170.624, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 92, "fumigation": null, "degassing": null, "lastFumigation": "21.08.26", "category": "A"}, {"receipt": "17.03.26", "shed": 14, "stack": "14A07", "bags": 3501, "qty": 173.196, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 169, "fumigation": null, "degassing": null, "lastFumigation": "17.06.26", "category": "A"}, {"receipt": "23.03.26", "shed": 14, "stack": "14A08", "bags": 3497, "qty": 172.786, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 163, "fumigation": null, "degassing": null, "lastFumigation": "17.06.26", "category": "A"}, {"receipt": "02.06.26", "shed": 14, "stack": "14A09", "bags": 3501, "qty": 170.651, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 92, "fumigation": null, "degassing": null, "lastFumigation": "17.06.26", "category": "A"}, {"receipt": "17.03.26", "shed": 14, "stack": "14B10", "bags": 3501, "qty": 172.304, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 169, "fumigation": null, "degassing": null, "lastFumigation": "06.06.26", "category": "A"}, {"receipt": "30.05.26", "shed": 14, "stack": "14B11", "bags": 3259, "qty": 160.88, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 95, "fumigation": null, "degassing": null, "lastFumigation": "06.06.26", "category": "A"}, {"receipt": "27.03.26", "shed": 14, "stack": "14B12", "bags": 3501, "qty": 173.879, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 159, "fumigation": null, "degassing": null, "lastFumigation": "06.06.26", "category": "A"}, {"receipt": "14.10.25", "shed": 14, "stack": "14B13", "bags": 3029, "qty": 149.676, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 323, "fumigation": null, "degassing": null, "lastFumigation": "06.06.26", "category": "A"}, {"receipt": "27.09.25", "shed": 14, "stack": "14B14", "bags": 3501, "qty": 176.112, "commodity": "WHEAT FAQ 2025-26", "status": "OCCUPIED", "storage": 340, "fumigation": "31.08.26", "degassing": null, "lastFumigation": null, "category": "A"}, {"receipt": "25.09.25", "shed": 14, "stack": "14B15", "bags": 3501, "qty": 176.077, "commodity": "WHEAT FAQ 2025-26", "status": "OCCUPIED", "storage": 342, "fumigation": "31.08.26", "degassing": null, "lastFumigation": null, "category": "A"}, {"receipt": "21.01.26", "shed": 18, "stack": "18A01", "bags": 3501, "qty": 172.481, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 224, "fumigation": null, "degassing": null, "lastFumigation": "30.05.26", "category": "A"}, {"receipt": "06.04.26", "shed": 18, "stack": "18A02", "bags": 3501, "qty": 173.348, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 149, "fumigation": "31.08.26", "degassing": null, "lastFumigation": null, "category": "A"}, {"receipt": "03.11.25", "shed": 18, "stack": "18A03", "bags": 3501, "qty": 172.986, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 303, "fumigation": null, "degassing": null, "lastFumigation": "29.06.26", "category": "A"}, {"receipt": "31.03.26", "shed": 18, "stack": "18A04", "bags": 3501, "qty": 170.649, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 155, "fumigation": null, "degassing": null, "lastFumigation": "08.07.26", "category": "A"}, {"receipt": null, "shed": 18, "stack": "18A05", "bags": null, "qty": null, "commodity": null, "status": "EMPTY", "storage": null, "fumigation": null, "degassing": null, "lastFumigation": null, "category": "A"}, {"receipt": null, "shed": 18, "stack": "18A06", "bags": null, "qty": null, "commodity": null, "status": "EMPTY", "storage": null, "fumigation": null, "degassing": null, "lastFumigation": null, "category": "A"}, {"receipt": "04.07.26", "shed": 18, "stack": "18A07", "bags": 1897, "qty": 92.477, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 60, "fumigation": null, "degassing": null, "lastFumigation": "04.07.26", "category": "A"}, {"receipt": "25.06.25", "shed": 18, "stack": "18A08", "bags": 3501, "qty": 174.481, "commodity": "WHEAT FAQ 2025-26", "status": "OCCUPIED", "storage": 434, "fumigation": null, "degassing": null, "lastFumigation": "08.07.26", "category": "A"}, {"receipt": "19.03.26", "shed": 18, "stack": "18A09", "bags": 3501, "qty": 173.324, "commodity": "FRK  RRA 2024-25", "status": "OCCUPIED", "storage": 167, "fumigation": null, "degassing": null, "lastFumigation": "08.07.26", "category": "A"}, {"receipt": "05.01.26", "shed": 20, "stack": "M6A01", "bags": 3456, "qty": 174.908, "commodity": "WHEAT FAQ 2025-26", "status": "OCCUPIED", "storage": 240, "fumigation": null, "degassing": null, "lastFumigation": "21.08.26", "category": "A"}, {"receipt": null, "shed": 20, "stack": "M6A02", "bags": null, "qty": null, "commodity": null, "status": "EMPTY", "storage": null, "fumigation": null, "degassing": null, "lastFumigation": null, "category": "A"}, {"receipt": "17.11.25", "shed": 20, "stack": "M6A03", "bags": 3501, "qty": 177.099, "commodity": "WHEAT FAQ 2025-26", "status": "OCCUPIED", "storage": 289, "fumigation": null, "degassing": null, "lastFumigation": "21.08.26", "category": "A"}, {"receipt": "31.08.26", "shed": "9TS", "stack": "9TS14", "bags": 3874, "qty": 188, "commodity": "FRK RRA 2023-24", "status": "OCCUPIED", "storage": 2, "fumigation": null, "degassing": null, "lastFumigation": null, "category": "A"}, {"receipt": "31.08.26", "shed": "18TS", "stack": "18TS20", "bags": 3869, "qty": 188, "commodity": "FRK RRA 2023-24", "status": "OCCUPIED", "storage": 2, "fumigation": null, "degassing": null, "lastFumigation": null, "category": "A"}];
 function render(){
- const total=rows.length, empty=rows.filter(x=>x.empty).length;
- const wheat=rows.filter(x=>/wheat/.test(norm(x.comm))).length;
- const rice=rows.filter(x=>/rice|frk|rra/.test(norm(x.comm))&&!/wheat/.test(norm(x.comm))).length;
- const att=rows.filter(x=>x.inf||x.cover), due=rows.filter(x=>x.due&&!x.inf&&!x.cover), clear=Math.max(0,total-att.length-due.length);
- document.getElementById("total").textContent=total;document.getElementById("full").textContent=Math.max(0,total-empty);document.getElementById("empty").textContent=empty;
- document.getElementById("attention").textContent=att.length;document.getElementById("due").textContent=due.length;
- document.getElementById("wheatN").textContent=wheat;document.getElementById("riceN").textContent=rice;document.getElementById("emptyN").textContent=empty;document.getElementById("totalN").textContent=total;
- document.getElementById("wheatP").textContent=pct(wheat,total);document.getElementById("riceP").textContent=pct(rice,total);document.getElementById("emptyP").textContent=pct(empty,total);
- document.getElementById("donutText").textContent=total;document.getElementById("clearText").textContent=clear;document.getElementById("attTotal").textContent=att.length;document.getElementById("dueTotal").textContent=due.length;
- document.getElementById("stackDonut").style.background=`conic-gradient(#f08a00 0 ${wheat/Math.max(1,total)*100}%,#aaa ${wheat/Math.max(1,total)*100}% ${(wheat+rice)/Math.max(1,total)*100}%,#d21c29 ${(wheat+rice)/Math.max(1,total)*100}% 100%)`;
- document.getElementById("statusDonut").style.background=`conic-gradient(#3478c7 0 ${clear/Math.max(1,total)*100}%,#c51d27 ${clear/Math.max(1,total)*100}% ${(clear+att.length)/Math.max(1,total)*100}%,#80a63b ${(clear+att.length)/Math.max(1,total)*100}% 100%)`;
- document.getElementById("attBody").innerHTML=att.length?att.map(x=>`<tr><td>${esc(x.stack)}</td><td>${esc(x.comm)}</td><td>${esc(x.fum)}</td><td>${esc(x.days)}</td></tr>`).join(""):`<tr><td colspan="4">No stacks found</td></tr>`;
- document.getElementById("dueBody").innerHTML=due.length?due.map(x=>`<tr><td>${esc(x.stack)}</td><td>${esc(x.comm)}</td><td>${esc(x.last)}</td><td>${esc(x.days)}</td><td><b>DUE (&gt;30)</b></td></tr>`).join(""):`<tr><td colspan="5">No stacks found</td></tr>`;
+ const q=document.getElementById('search').value.toLowerCase(), s=document.getElementById('shed').value, t=document.getElementById('type').value;
+ const filtered=DATA.filter(x=>{const text=JSON.stringify(x).toLowerCase(); const isType=!t||(t==='WHEAT'?String(x.commodity||'').toUpperCase().includes('WHEAT'):!String(x.commodity||'').toUpperCase().includes('WHEAT')); return (!q||text.includes(q))&&(!s||String(x.shed)===s)&&isType;});
+ document.getElementById('total').textContent=DATA.length; document.getElementById('occupied').textContent=DATA.filter(x=>x.status==='OCCUPIED').length; document.getElementById('empty').textContent=DATA.filter(x=>x.status==='EMPTY').length;
+ document.getElementById('qty').textContent=DATA.reduce((a,x)=>a+(Number(x.qty)||0),0).toFixed(2);
+ document.getElementById('body').innerHTML=filtered.map((x,i)=>`<tr class="${x.status==='EMPTY'?'empty':''}"><td>${i+1}</td><td>${x.receipt||''}</td><td>${x.shed||''}</td><td><b>${x.stack||''}</b></td><td>${x.bags??''}</td><td>${x.qty??''}</td><td>${x.commodity||''}</td><td>${x.status}</td><td>${x.storage??''}</td><td>${x.fumigation||''}</td><td>${x.degassing||''}</td><td>${x.lastFumigation||''}</td><td>${x.category}</td></tr>`).join('');
 }
-document.getElementById("search").addEventListener("input",e=>{
- const q=norm(e.target.value),x=rows.find(r=>norm(r.stack)===q||norm(r.stack).includes(q));
- const a=x?[x.stack,x.comm,x.receipt,x.last,x.days,x.status]:["-","-","-","-","-","-"];
- ["s1","s2","s3","s4","s5","s6"].forEach((id,i)=>document.getElementById(id).textContent=a[i]||"-");
-});
-loadSheet();setInterval(loadSheet,30000);
-</script>
-</body>
-</html>
+render();
+</script></body></html>
