@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Status Godown No. 9, 14, 18 and 20</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="logo">🏭</div>
+  <div class="headtitle">STATUS GODOWN NO. 9, 14, 18 AND 20</div>
+  <div class="updated">Last Updated : <span id="updated">--</span> <button onclick="loadData()" title="Refresh">↻</button></div>
+</header>
+
+<main>
+  <div id="connection" class="connection">Connecting to Google Sheet…</div>
+
+  <section class="top-grid">
+    <div class="metric blue"><div class="label">TOTAL STACK</div><div class="big" id="total">0</div><div>All Stacks</div></div>
+    <div class="metric green"><div class="label">FULL STACK</div><div class="big" id="full">0</div><div>Full Stacks</div></div>
+    <div class="metric purple"><div class="label">EMPTY STACK</div><div class="big" id="empty">0</div><div>Empty Stacks</div></div>
+    <div class="metric red"><div class="label">INFESTED /<br>UNDER COVER</div><div class="big" id="attention">0</div><div>Requires Attention</div></div>
+    <div class="metric orange"><div class="label">FUMIGATION DUE</div><div class="big" id="fumDue">0</div><div>Due for Fumigation</div></div>
+
+    <aside class="quick">
+      <h3>QUICK NAVIGATION</h3>
+      <a id="qcLink" target="_blank" class="q qc">☷ &nbsp; QC DETAILS</a>
+      <a id="masterLink" target="_blank" class="q master">▤ &nbsp; MASTER</a>
+      <a id="riceLink" target="_blank" class="q rice">🌾 &nbsp; RICE PRIORITY</a>
+      <a id="wheatLink" target="_blank" class="q wheat">🌾 &nbsp; WHEAT PRIORITY</a>
+    </aside>
+  </section>
+
+  <section class="middle-grid">
+    <div class="summary panel">
+      <h2>STACK TYPE SUMMARY</h2>
+      <table><thead><tr><th>STACK TYPE</th><th>COUNT</th><th>%</th></tr></thead>
+      <tbody>
+        <tr><td>🟠 Wheat</td><td id="wheatCount">0</td><td id="wheatPct">0%</td></tr>
+        <tr><td>⚪ Rice (FRK + RRA)</td><td id="riceCount">0</td><td id="ricePct">0%</td></tr>
+        <tr><td>🔴 Empty Stack</td><td id="emptyCount">0</td><td id="emptyPct">0%</td></tr>
+        <tr class="totalrow"><td>TOTAL</td><td id="sumCount">0</td><td>100%</td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="donut panel"><h2>STACK TYPE</h2><div class="donut-chart" id="stackDonut"><div><b id="donutTotal">0</b><small>TOTAL</small></div></div><div class="legend"><span>🟠 Wheat</span><span>⚪ Rice</span><span>🔴 Empty</span></div></div>
+
+    <div class="donut panel"><h2>INFESTATION STATUS</h2><div class="donut-chart statusdonut" id="statusDonut"><div><b id="clearCount">0</b><small>CLEAR</small></div></div><div class="legend"><span>🔵 Clear</span><span>🔴 Infested / Under Cover</span><span>🟢 Fumigation Due</span></div></div>
+  </section>
+
+  <section class="details-grid">
+    <div class="detail redpanel">
+      <h2>🐞 &nbsp; INFESTED / UNDER COVER DETAILS</h2>
+      <div class="tablewrap"><table><thead><tr><th>Stack No.</th><th>Commodity</th><th>Fumigation Date</th><th>Days</th></tr></thead><tbody id="attentionBody"></tbody></table></div>
+      <footer>Total Infested / Under Cover : <b id="attentionTotal">0</b></footer>
+    </div>
+
+    <div class="detail orangepanel">
+      <h2>🧯 &nbsp; FUMIGATION DUE DETAILS</h2>
+      <div class="tablewrap"><table><thead><tr><th>Stack No.</th><th>Commodity</th><th>Last Fumigation</th><th>Days</th><th>Status</th></tr></thead><tbody id="dueBody"></tbody></table></div>
+      <footer>Total Fumigation Due : <b id="dueTotal">0</b></footer>
+    </div>
+
+    <aside class="searchbox">
+      <h2>SEARCH STACK</h2>
+      <input id="search" placeholder="Enter Stack No.">
+      <div class="result"><b>Stack No.</b><span id="sStack">-</span></div>
+      <div class="result"><b>Commodity</b><span id="sCommodity">-</span></div>
+      <div class="result"><b>Date of Receipt</b><span id="sReceipt">-</span></div>
+      <div class="result"><b>Last Fumigation</b><span id="sLast">-</span></div>
+      <div class="result"><b>Fumigation Days</b><span id="sDays">-</span></div>
+      <div class="result"><b>Status</b><span id="sStatus">-</span></div>
+    </aside>
+  </section>
+
+  <section class="guide"><strong>STATUS GUIDE</strong><span>🟢 NORMAL<br><small>Fumigation Days &lt; 25</small></span><span>🟠 WARNING<br><small>Fumigation Days 25 - 30</small></span><span>🔴 DUE<br><small>Fumigation Days &gt; 30</small></span><span>🟣 ATTENTION<br><small>Infested / Under Cover</small></span></section>
+  <div class="note">ⓘ <b>Note :</b> All days are calculated from Last Fumigation Date using TODAY() &nbsp;&nbsp;&nbsp; <b>Keep Stack Safe, Keep Quality Safe!</b></div>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
